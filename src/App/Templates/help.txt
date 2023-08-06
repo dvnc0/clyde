@@ -1,0 +1,7 @@
+#application_name#
+-----------------------------------------------
+#version#
+#author#
+#website#
+
+#about#
