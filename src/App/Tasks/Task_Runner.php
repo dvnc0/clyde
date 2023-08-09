@@ -1,9 +1,9 @@
 <?php
-namespace Clyde\Tools;
+namespace Clyde\Tasks;
 
 use Clyde\Tasks\Task_Base;
 
-class Spinner {
+class Task_Runner {
     /**
      * symbols to use for animation
      *

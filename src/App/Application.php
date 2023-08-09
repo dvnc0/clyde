@@ -5,15 +5,19 @@ namespace Clyde;
 use Clyde\Objects\Application_Object;
 use Clyde\Objects\Command_Object;
 use Clyde\Tools\Help;
+use Clyde\Core\Request_Handler;
 
 class Application {
     protected Application_Object $Application_Object;
+    protected Request_Handler $Request_Handler;
     protected Help $Help;
+    protected array $argv;
 
     protected static Application|null $Instance = null;
 
     public function __construct() {
         $this->Application_Object = new Application_Object;
+        $this->Request_Handler = new Request_Handler;
         $this->Help = new Help;
         static::$Instance = $this;
     }
@@ -60,8 +64,9 @@ class Application {
     }
 
     public function run(): void {
-        // server argv
-        echo $this->Help->buildHelpOutPut($this->Application_Object);
-        var_dump($this->Application_Object);
+        $this->argv = $_SERVER['argv'];
+        $Request = $this->Request_Handler->parseRequest($this->argv, $this->Application_Object);
+        var_dump($this->Application_Object->commands['load']);
+        var_dump($Request);
     }
 }

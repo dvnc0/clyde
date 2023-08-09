@@ -3,6 +3,8 @@ namespace Clyde\Commands;
 
 use Clyde\Actions\Action_Base;
 use Clyde\Objects\Command_Object;
+use Clyde\Objects\Flag_Object;
+use Clyde\Objects\Option_Object;
 use Exception;
 
 class Command {
@@ -36,8 +38,8 @@ class Command {
         throw new Exception("Passed action is not a child of Action_Base or a callable");
     }
 
-    public function arg(): Command {
-        // build out an arg
+    public function arg(Flag_Object|Option_Object $Arg_Object): Command {
+        $this->Command_Object->args[$Arg_Object->title] = $Arg_Object;
         return $this;
     }
 
