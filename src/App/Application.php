@@ -2,14 +2,19 @@
 
 namespace Clyde;
 
+use Clyde\Actions\Action_Base;
 use Clyde\Objects\Application_Object;
 use Clyde\Objects\Command_Object;
 use Clyde\Tools\Help;
 use Clyde\Core\Request_Handler;
+use Clyde\Core\Command_Parser;
+use Clyde\Request\Request;
+use Exception;
 
 class Application {
     protected Application_Object $Application_Object;
     protected Request_Handler $Request_Handler;
+    protected Command_Parser $Command_Parser;
     protected Help $Help;
     protected array $argv;
 
@@ -18,6 +23,7 @@ class Application {
     public function __construct() {
         $this->Application_Object = new Application_Object;
         $this->Request_Handler = new Request_Handler;
+        $this->Command_Parser = new Command_Parser;
         $this->Help = new Help;
         static::$Instance = $this;
     }
@@ -65,8 +71,26 @@ class Application {
 
     public function run(): void {
         $this->argv = $_SERVER['argv'];
-        $Request = $this->Request_Handler->parseRequest($this->argv, $this->Application_Object);
-        var_dump($this->Application_Object->commands['load']);
-        var_dump($Request);
+        $Request = $this->Request_Handler->parseRequest($this->argv);
+
+        [$command, $cli_params] = $this->Command_Parser->buildCommandData($Request, $this->Application_Object);
+
+        $action = $command->action;
+
+        if (is_callable($action)) {
+            call_user_func($action, $cli_params);
+            return;
+        }
+
+        if (get_parent_class($action) === Action_Base::class) {
+            $Request = new Request;
+            $Request->command = $command->command_name;
+            $Request->arguments = $cli_params;
+            $c = new $action;
+            $c->execute($Request);
+            return;
+        }
+
+        throw new Exception("Action is not callable or child of Action_Base");
     }
 }

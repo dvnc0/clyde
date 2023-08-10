@@ -1,7 +1,6 @@
 <?php
 namespace Clyde\Core;
 
-use Clyde\Objects\Application_Object;
 use Clyde\Request\Request;
 use Clyde\Request\Request_Item;
 
@@ -14,7 +13,7 @@ class Request_Handler {
 
     protected int $next_key = 0;
 
-    public function parseRequest(array $argv, Application_Object $application_Object): Request {
+    public function parseRequest(array $argv): Request {
         $Request = new Request;
         $Request->command = $argv[1];
 
