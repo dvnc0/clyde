@@ -7,6 +7,9 @@ use Exception;
 
 class Command_Parser {
     public function buildCommandData(Request $Request, Application_Object $Application_Object): array {
+        if (empty($Application_Object->commands[$Request->command])) {
+            throw new Exception("Command not found " . $Request->command);
+        }
         $command = $Application_Object->commands[$Request->command];
 
         $possible_args = $command->args;

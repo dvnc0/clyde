@@ -3,6 +3,7 @@
 namespace Clyde;
 
 use Clyde\Actions\Action_Base;
+use Clyde\Commands\Command;
 use Clyde\Objects\Application_Object;
 use Clyde\Objects\Command_Object;
 use Clyde\Tools\Help;
@@ -69,7 +70,24 @@ class Application {
         return $this;
     }
 
+    protected function buildVersionCommand() {
+        if(empty($this->Application_Object->version)) {
+            return;
+        }
+        $version = $this->Application_Object->version;
+        $title = $this->Application_Object->application_name;
+        $command = Command::create('version')
+            ->about('Prints the version information for ' . $title)
+            ->action(function($params) use ($version, $title) {
+                echo "$title version: $version\n\n";
+                exit();
+            })
+            ->save();
+        $this->command($command);
+    }
+
     public function run(): void {
+        $this->buildVersionCommand();
         $this->argv = $_SERVER['argv'];
         $Request = $this->Request_Handler->parseRequest($this->argv);
 

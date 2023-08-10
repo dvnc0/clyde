@@ -1,7 +1,7 @@
 {
     "name": "danc0/clyde",
-    "type": "project",
-    "description": "A lightweight PHP CLI application framework.",
+    "type": "library",
+    "description": "Your friendly neighborhood CLI framework.",
     "authors": [
         {
             "name": "Dan Cobb",
