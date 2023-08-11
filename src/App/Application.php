@@ -10,12 +10,14 @@ use Clyde\Tools\Help;
 use Clyde\Core\Request_Handler;
 use Clyde\Core\Command_Parser;
 use Clyde\Request\Request;
+use Clyde\Core\Event_Dispatcher;
 use Exception;
 
 class Application {
     protected Application_Object $Application_Object;
     protected Request_Handler $Request_Handler;
     protected Command_Parser $Command_Parser;
+    protected Event_Dispatcher $Event_Dispatcher;
     protected Help $Help;
     protected array $argv;
 
@@ -25,6 +27,7 @@ class Application {
         $this->Application_Object = new Application_Object;
         $this->Request_Handler = new Request_Handler;
         $this->Command_Parser = new Command_Parser;
+        $this->Event_Dispatcher = new Event_Dispatcher($this);
         $this->Help = new Help;
         static::$Instance = $this;
     }
@@ -38,6 +41,10 @@ class Application {
 
         static::$Instance->new($application_name);
         return static::$Instance;
+    }
+
+    public function getEvents(): array {
+        return $this->Application_Object->events;
     }
 
     public function new(string $application_name): Application {
@@ -67,6 +74,9 @@ class Application {
 
     public function command(Command_Object $Command_Object): Application {
         $this->Application_Object->commands[$Command_Object->command_name] = $Command_Object;
+        if (!empty($Command_Object->event)) {
+            $this->Application_Object->events[$Command_Object->event][] = $Command_Object;
+        }
         return $this;
     }
 
@@ -104,7 +114,7 @@ class Application {
             $Request = new Request;
             $Request->command = $command->command_name;
             $Request->arguments = $cli_params;
-            $c = new $action;
+            $c = new $action($this, $this->Event_Dispatcher);
             $c->execute($Request);
             return;
         }

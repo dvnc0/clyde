@@ -43,6 +43,11 @@ class Command {
         return $this;
     }
 
+    public function subscribe(string $event_name): Command {
+        $this->Command_Object->event = $event_name;
+        return $this;
+    }
+
     public function save(): Command_Object {
         return $this->Command_Object;
     }

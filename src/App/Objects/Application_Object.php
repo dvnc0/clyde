@@ -10,4 +10,5 @@ class Application_Object {
     public string $website = '';
     public string|null $template = null;
     public array $commands;
+    public array $events = [];
 }

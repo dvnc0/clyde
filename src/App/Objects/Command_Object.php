@@ -6,4 +6,5 @@ class Command_Object {
     public string $about = '';
     public $action;
     public array $args = [];
+    public string $event = '';
 }
