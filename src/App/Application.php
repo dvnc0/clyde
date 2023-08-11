@@ -11,13 +11,16 @@ use Clyde\Core\Request_Handler;
 use Clyde\Core\Command_Parser;
 use Clyde\Request\Request;
 use Clyde\Core\Event_Dispatcher;
+use Clyde\Objects\Printer_Object_Base;
+use Clyde\Tools\Printer;
 use Exception;
 
 class Application {
     protected Application_Object $Application_Object;
     protected Request_Handler $Request_Handler;
     protected Command_Parser $Command_Parser;
-    protected Event_Dispatcher $Event_Dispatcher;
+    public Event_Dispatcher $Event_Dispatcher;
+    public Printer $Printer;
     protected Help $Help;
     protected array $argv;
 
@@ -28,8 +31,13 @@ class Application {
         $this->Request_Handler = new Request_Handler;
         $this->Command_Parser = new Command_Parser;
         $this->Event_Dispatcher = new Event_Dispatcher($this);
+        $this->Printer = new Printer;
         $this->Help = new Help;
         static::$Instance = $this;
+    }
+
+    public function setCustomPrinter(Printer_Object_Base $Printer_Object): void {
+        $this->Printer->customPrinter($Printer_Object);
     }
 
     public static function create(string $application_name): Application {

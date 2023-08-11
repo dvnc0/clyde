@@ -1,9 +1,17 @@
 <?php
 namespace Clyde\Tasks;
 
+use Clyde\Application;
+use Clyde\Core\Event_Dispatcher;
 use Clyde\Tasks\Task_Base;
+use Clyde\Tools\Printer;
 
 class Task_Runner {
+
+    protected Printer $Printer;
+    protected Application $Application;
+    protected Event_Dispatcher $Event_Dispatcher;
+
     /**
      * symbols to use for animation
      *
@@ -11,12 +19,15 @@ class Task_Runner {
      */
     protected array $symbols = [];
 
-    public function __construct($symbols = []){
+    public function __construct(Application $Application ,$symbols = []){
         if (!empty($symbols)) {
             $this->symbols = $symbols;
         } else {
             $this->symbols = mb_str_split('⢿⣻⣽⣾⣷⣯⣟⡿');
         }
+        $this->Application = $Application;
+        $this->Printer = $this->Application->Printer;
+        $this->Event_Dispatcher = $this->Application->Event_Dispatcher;
     }
 
     /**
@@ -25,7 +36,7 @@ class Task_Runner {
      * @param Task_Base $Task
      * @return void
      */
-    public function spin(Task_Base $Task) {
+    public function run(Task_Base $Task) {
         $this->hideCursor();
 
         $pid = pcntl_fork();
@@ -62,7 +73,7 @@ class Task_Runner {
             }
         }
         $this->overWriteLine();
-        $this->write($Task->task_message . " ✓\n");
+        $this->Printer->success($Task->task_message . " ✓\n");
         $this->showCursor();
     }
 
@@ -73,7 +84,7 @@ class Task_Runner {
      * @return void
      */
     protected function write(string $message) {
-        print($message);
+        $this->Printer->warning($message, false);
     }
 
     /**
@@ -82,8 +93,8 @@ class Task_Runner {
      * @return void
      */
     protected function overWriteLine() {
-        $this->write("\x0D");
-        $this->write("\x1B[2K");
+        print("\x0D");
+        print("\x1B[2K");
     }
 
     /**
@@ -92,7 +103,7 @@ class Task_Runner {
      * @return void
      */
     protected function hideCursor() {
-        $this->write("\e[?25l");
+        print("\e[?25l");
     }
 
     /**
@@ -101,6 +112,6 @@ class Task_Runner {
      * @return void
      */
     protected function showCursor() {
-        $this->write("\e[?25h");
+        print("\e[?25h");
     }
 }
