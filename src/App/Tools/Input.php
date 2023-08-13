@@ -179,4 +179,38 @@ class Input
             }
         }
     }
+
+    public function password(string $message): string {
+        $del_line = "\033[1K\r";
+        $this->Printer->warning($message, false);
+        $password_buffer = [];
+        $stdin = fopen('php://stdin', 'r');
+        while(true) {
+            stream_set_blocking($stdin, 0);
+            $keystroke = fgets($stdin);
+            system('stty cbreak -echo');
+            if ($keystroke !== false) {
+                switch ($keystroke) {
+                    case "\n":
+                        fclose($stdin);
+                        system('stty sane');
+                        return implode('', $password_buffer);
+                    case "\010":
+                    case "\177":
+                        print($del_line);
+                        $this->Printer->warning($message, false);
+                        unset($password_buffer[array_key_last($password_buffer)]);
+                        $this->Printer->caption(implode('', array_fill(0, count($password_buffer), '*')), false);
+                        break;
+                    default:
+                        print($del_line);
+                        $this->Printer->warning($message, false);
+                        $password_buffer[] = $keystroke;
+                        $count = count($password_buffer);
+                        $this->Printer->caption(implode('', array_fill(0, $count, '*')), false);
+                        break;
+                }
+            }
+        }
+    }
 }
