@@ -200,14 +200,15 @@ class Input
                         print($del_line);
                         $this->Printer->warning($message, false);
                         unset($password_buffer[array_key_last($password_buffer)]);
-                        $this->Printer->caption(implode('', array_fill(0, count($password_buffer), '*')), false);
+                        $this->Printer->message(implode('', array_fill(0, count($password_buffer), '*')), false);
                         break;
                     default:
+                        $keys = str_split($keystroke);
                         print($del_line);
                         $this->Printer->warning($message, false);
-                        $password_buffer[] = $keystroke;
+                        $password_buffer = array_merge($password_buffer, $keys);
                         $count = count($password_buffer);
-                        $this->Printer->caption(implode('', array_fill(0, $count, '*')), false);
+                        $this->Printer->message(implode('', array_fill(0, $count, '*')), false);
                         break;
                 }
             }
