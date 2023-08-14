@@ -225,4 +225,19 @@ class Input
         $this->Printer->warning($message);
         return readline();
     }
+
+    public function singleChoice(string $message, array $options): string {
+        while (true) {
+            $prompt = $message . implode(', ', $options);
+            $this->Printer->warning($prompt);
+            $stdin = fopen('php://stdin', 'r');
+            $keystroke = trim(fgets($stdin));
+            if (in_array((string) $keystroke, $options) === true) {
+                fclose($stdin);
+                return $keystroke;
+            }
+
+            print PHP_EOL;
+        }
+    }
 }
