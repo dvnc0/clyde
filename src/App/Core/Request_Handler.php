@@ -3,6 +3,7 @@ namespace Clyde\Core;
 
 use Clyde\Request\Request;
 use Clyde\Request\Request_Item;
+use Exception;
 
 class Request_Handler {
 
@@ -15,6 +16,10 @@ class Request_Handler {
 
     public function parseRequest(array $argv): Request {
         $Request = new Request;
+
+        if (empty($argv[1])) {
+            throw new Exception("Command was not passed");
+        }
         $Request->command = $argv[1];
 
         $passed_arguments = $this->getArgumentsPassed($argv);

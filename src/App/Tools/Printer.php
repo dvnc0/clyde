@@ -37,6 +37,17 @@ class Printer {
         return $message;
     }
 
+    public function fullWidth(string $message_in): string {
+        $width           = (int)shell_exec('tput cols');
+        $remaining_width = $width - strlen($message_in);
+        while ($remaining_width > 0) {
+            $message_in .= " ";
+            $remaining_width--;
+        }
+
+        return $message_in;
+    }
+
     public function error(string $message, bool $new_line = true): void {
         $this->output($message, $this->Printer_Object->error, $new_line);
     }
@@ -67,6 +78,10 @@ class Printer {
 
     public function caption(string $message, bool $new_line = true): void {
         $this->output($message, $this->Printer_Object->caption, $new_line);
+    }
+
+    public function highlight(string $message, bool $new_line = true): void {
+        $this->output($message, $this->Printer_Object->highlight, $new_line);
     }
     
     public function __call(string $method, array $args): void {

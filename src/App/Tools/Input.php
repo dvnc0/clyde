@@ -162,20 +162,20 @@ class Input
                 $line = ">> ";
                 if (in_array($key, $selected)) {
                     $line = $single_only ? $line : $line . "[x]";
-                    $this->Printer->caption("$line $opt");
+                    $this->Printer->highlight($this->Printer->fullWidth("$line $opt"));
                 } else {
                     $line = $single_only ? $line : $line . "[ ]";
-                    $this->Printer->caption("$line $opt");
+                    $this->Printer->highlight($this->Printer->fullWidth("$line $opt"));
                 }
                 continue;
             }
     
             if (in_array($key, $selected)) {
                 $line = $single_only ? "   " : "   [x]";
-                $this->Printer->caption("$line $opt");
+                $this->Printer->message("$line $opt");
             } else {
                 $line = $single_only ? "   " : "   [ ]";
-                $this->Printer->caption("$line $opt");
+                $this->Printer->message("$line $opt");
             }
         }
     }
@@ -239,5 +239,10 @@ class Input
 
             print PHP_EOL;
         }
+    }
+
+    public function expand(string $message, array $list, array $sub_options): array {
+        //
+        return [];
     }
 }

@@ -10,4 +10,5 @@ abstract class Printer_Object_Base {
     public string $success = '0;32';
     public string $banner = '1;37;45';
     public string $caption = '0;90';
+    public string $highlight = '47;30';
 }
