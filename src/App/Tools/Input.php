@@ -214,4 +214,15 @@ class Input
             }
         }
     }
+
+    public function autocompleteAnswers(string $message, array $answers): string {
+        $callback = function ($line, $index) use ($answers) {
+            return $answers;
+        };
+
+        readline_completion_function($callback);
+
+        $this->Printer->warning($message);
+        return readline();
+    }
 }
