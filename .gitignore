@@ -2,3 +2,5 @@ src/vendor
 composer.lock
 .gitconfig
 src/clyde
+.phpunit.cache
+src/tests/coverage
