@@ -1,5 +1,6 @@
 # Clyde
 Your friendly neighborhood CLI framework.
+[![PHP Composer](https://github.com/dvnc0/clyde/actions/workflows/php.yml/badge.svg)](https://github.com/dvnc0/clyde/actions/workflows/php.yml)
 
 **Documentation is incomplete**
 **This is still a WIP**
@@ -92,7 +93,8 @@ Commands can run tasks that extend `Clyde\Tasks\Task_Base` via the Task_Runner. 
 
 ## TODO
 - A lot of cleanup/tests etc
-- Colored output
+- Colored output/printer
 - Helper classes for tables/progress bars etc
 - Automatic Help page generation
 - Better exceptions
+- ~~Basic Events~~
