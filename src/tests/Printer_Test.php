@@ -3,6 +3,7 @@
 use Clyde\Tools\Printer;
 use PHPUnit\Framework\TestCase;
 use Clyde\Objects\Printer_Object;
+use Clyde\Objects\Printer_Object_Base;
 
 /**
  * @covers Clyde\Tools\Printer
@@ -65,5 +66,53 @@ class Printer_Test extends TestCase {
             );
         
         $Mock_Printer->{$message_type}($message);
+    }
+
+    public function testMagicCallThrowsExceptionForMissingColor() {
+        $Mock_Printer = $this->getMockBuilder(Printer::class)
+            ->onlyMethods(['printOutput'])
+            ->getMock();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Color for foo not found");
+        $Mock_Printer->foo('some message');
+    }
+
+    public function testMagicCallThrowsExceptionWithNoMessage() {
+        $Mock_Printer = $this->getMockBuilder(Printer::class)
+            ->onlyMethods(['printOutput'])
+            ->getMock();
+
+        $Mock_Print_Object = new class extends Printer_Object_Base {
+            public $foo = "0;31";
+        };
+
+        $Mock_Printer->customPrinter($Mock_Print_Object);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("No message passed to Printer method for foo");
+        $Mock_Printer->foo();
+    }
+
+    public function testMagicCallPrintsString() {
+        $Mock_Printer = $this->getMockBuilder(Printer::class)
+            ->onlyMethods(['printOutput'])
+            ->getMock();
+
+        $Mock_Print_Object = new class extends Printer_Object_Base {
+            public $foo = "0;31;";
+        };
+
+        $Mock_Printer->customPrinter($Mock_Print_Object);
+
+        $Mock_Printer->expects($this->once())
+            ->method('printOutput')
+            ->with(
+                $this->equalTo("\e[%sm%s\e[0m\n"),
+                $this->equalTo("0;31;"),
+                $this->equalTo('Foo Message')
+            );
+        
+        $Mock_Printer->foo('Foo Message');
     }
 }

@@ -35,7 +35,7 @@ class Command {
             return $this;
         }
         
-        throw new Exception("Passed action is not a child of Action_Base or a callable");
+        throw new Exception("Passed action is not a child of Action_Base or a callable.");
     }
 
     public function arg(Flag_Object|Option_Object $Arg_Object): Command {

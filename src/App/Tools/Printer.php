@@ -7,12 +7,12 @@ use Exception;
 
 class Printer {
     /**
-     * Printer_Object
+     * Printer_Object_Base
      * Defines the colored outputs for the print methods
      *
-     * @var Printer_Object
+     * @var Printer_Object_Base
      */
-    protected Printer_Object $Printer_Object;
+    protected Printer_Object_Base $Printer_Object;
 
     /**
      * Constructor
