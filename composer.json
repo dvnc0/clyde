@@ -27,7 +27,7 @@
         "phpunit/php-code-coverage": "^9.2"
     },
     "scripts": {
-        "test": "src/vendor/bin/phpunit src/tests/ --colors always",
+        "test": "src/vendor/bin/phpunit src/tests/ --colors always --verbose --testdox",
         "coverage": "src/vendor/bin/phpunit --coverage-html src/tests/coverage/ src/tests/",
         "view": "xdg-open src/tests/coverage/index.html",
         "stan": "src/vendor/bin/phpstan analyse -c phpstan.neon",
