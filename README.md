@@ -1,7 +1,7 @@
 # Clyde
 Your friendly neighborhood CLI framework.
 
-[![PHP Composer](https://github.com/dvnc0/clyde/actions/workflows/php.yml/badge.svg)](https://github.com/dvnc0/clyde/actions/workflows/php.yml)
+[![PHPUnit](https://github.com/dvnc0/clyde/actions/workflows/php.yml/badge.svg)](https://github.com/dvnc0/clyde/actions/workflows/php.yml)
 
 **Documentation is incomplete**
 **This is still a WIP**
