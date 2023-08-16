@@ -1,10 +1,7 @@
 <?php
 
-use Clyde\Actions\Action_Base;
-use Clyde\Application;
 use Clyde\Commands\Command;
 use Clyde\Objects\Command_Object;
-use Clyde\Request\Request_Response;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -38,5 +35,4 @@ class Command_Test extends TestCase {
         $this->expectExceptionMessage("Passed action is not a child of Action_Base or a callable.");
         $command->action('Foo Bar');
     }
-
 }
