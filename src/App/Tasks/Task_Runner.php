@@ -20,11 +20,7 @@ class Task_Runner {
     protected array $symbols = [];
 
     public function __construct(Application $Application ,$symbols = []){
-        if (!empty($symbols)) {
-            $this->symbols = $symbols;
-        } else {
-            $this->symbols = mb_str_split('⢿⣻⣽⣾⣷⣯⣟⡿');
-        }
+        $this->symbols = $symbols ?: mb_str_split('⢿⣻⣽⣾⣷⣯⣟⡿');
         $this->Application = $Application;
         $this->Printer = $this->Application->Printer;
         $this->Event_Dispatcher = $this->Application->Event_Dispatcher;

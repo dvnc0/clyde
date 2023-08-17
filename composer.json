@@ -31,7 +31,7 @@
         "coverage": "src/vendor/bin/phpunit --coverage-html src/tests/coverage/ src/tests/",
         "view": "xdg-open src/tests/coverage/index.html",
         "stan": "src/vendor/bin/phpstan analyse -c phpstan.neon",
-        "phpcs": "src/vendor/bin/phpcbf -p --colors --standard=phpcs.xml app --ignore=*/tmp/*; src/vendor/bin/phpcs -n --colors --standard=phpcs.xml app --ignore=*/tmp/*",
+        "phpcs": "src/vendor/bin/phpcbf -p --colors --standard=phpcs.xml src/App --ignore=*/tests/*; src/vendor/bin/phpcs -n --colors --standard=phpcs.xml src/App --ignore=*/tests/*",
         "check": "composer run-script test; composer run-script stan; composer run-script phpcs"
     }
 }

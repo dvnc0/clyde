@@ -2,9 +2,10 @@
 
 namespace Clyde\Args;
 
-class Arg_Default {
-    const TRUE = true;
-    const FALSE = false;
-    const YES = true;
-    const NO = false;
+class Arg_Default
+{
+	const TRUE  = TRUE;
+	const FALSE = FALSE;
+	const YES   = TRUE;
+	const NO    = FALSE;
 }
