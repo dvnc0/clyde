@@ -8,13 +8,29 @@ use Exception;
 class Request_Handler
 {
 
+	/**
+	 * argument tokens
+	 *
+	 * @var array
+	 */
 	protected array $tokens = [
 		'short' => "/(?:-)([a-zA-z]{1})/",
 		'long' => "/(?:--)([a-zA-z]+).*/",
 	];
 
+	/**
+	 * next key in args array
+	 *
+	 * @var integer
+	 */
 	protected int $next_key = 0;
 
+	/**
+	 * parse the request from argv
+	 *
+	 * @param array $argv argv array
+	 * @return Request
+	 */
 	public function parseRequest(array $argv): Request {
 		$Request = new Request;
 
@@ -29,6 +45,12 @@ class Request_Handler
 		return $Request;
 	}
 
+	/**
+	 * get the arguments passed
+	 *
+	 * @param array $argv argv array
+	 * @return array
+	 */
 	protected function getArgumentsPassed(array $argv): array {
 		$args_out     = [];
 		$argv_mutated = array_slice($argv, 2, (count($argv) - 1));
@@ -77,6 +99,13 @@ class Request_Handler
 		return $args_out;
 	}
 
+	/**
+	 * Find next argument
+	 *
+	 * @param array   $argv_mutated mutated array
+	 * @param integer $key          current position
+	 * @return array|null
+	 */
 	protected function findUntilNextArgument(array $argv_mutated, int $key): array|null {
 		$index = $key + 1;
 		$out   = [];

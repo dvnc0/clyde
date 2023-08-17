@@ -25,7 +25,7 @@ class Printer
 	/**
 	 * Load a custom Printer_Object
 	 *
-	 * @param Printer_Object_Base $Printer_Object
+	 * @param Printer_Object_Base $Printer_Object The printer object to set as custom
 	 * @return void
 	 * 
 	 * @codeCoverageIgnore

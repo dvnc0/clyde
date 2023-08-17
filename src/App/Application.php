@@ -17,15 +17,65 @@ use Exception;
 
 class Application
 {
+	/**
+	 * Application Object
+	 *
+	 * @var Application_Object
+	 */
 	protected Application_Object $Application_Object;
+
+	/**
+	 * Request handler
+	 *
+	 * @var Request_Handler
+	 */
 	protected Request_Handler $Request_Handler;
+
+	/**
+	 * Command Parser
+	 *
+	 * @var Command_Parser
+	 */
 	protected Command_Parser $Command_Parser;
+
+	/**
+	 * Help generator
+	 *
+	 * @var Help
+	 */
 	protected Help $Help;
+
+	/**
+	 * Args passed over cli
+	 *
+	 * @var array
+	 */
 	protected array $argv;
+
+	/**
+	 * Application instance
+	 *
+	 * @var Application|null
+	 */
 	protected static Application|null $Instance = NULL;
+
+	/**
+	 * Event dispatcher
+	 *
+	 * @var Event_Dispatcher
+	 */
 	public Event_Dispatcher $Event_Dispatcher;
+
+	/**
+	 * Printer
+	 *
+	 * @var Printer
+	 */
 	public Printer $Printer;
 
+	/**
+	 * Construct
+	 */
 	public function __construct() {
 		$this->Application_Object = new Application_Object;
 		$this->Request_Handler    = new Request_Handler;
@@ -36,10 +86,22 @@ class Application
 		static::$Instance         = $this;
 	}
 
-	public function setCustomPrinter(Printer_Object_Base $Printer_Object): void {
-		$this->Printer->customPrinter($Printer_Object);
+	/**
+	 * Add a custom printer to the printer
+	 *
+	 * @param Printer_Object_Base $Printer_Object_Base Custom printer data
+	 * @return void
+	 */
+	public function setCustomPrinter(Printer_Object_Base $Printer_Object_Base): void {
+		$this->Printer->customPrinter($Printer_Object_Base);
 	}
 
+	/**
+	 * Create an Application Instance
+	 *
+	 * @param string $application_name the applications name
+	 * @return Application
+	 */
 	public static function create(string $application_name): Application {
 		if (is_null(self::$Instance)) {
 			$Application = new Application;
@@ -52,35 +114,76 @@ class Application
 		return self::$Instance;
 	}
 
+	/**
+	 * Get subscribed events
+	 *
+	 * @return array
+	 */
 	public function getEvents(): array {
 		return $this->Application_Object->events;
 	}
 
+	/**
+	 * Create a new application
+	 *
+	 * @param string $application_name the applications name
+	 * @return Application
+	 */
 	public function new(string $application_name): Application {
 		$this->Application_Object->application_name = $application_name;
 		return $this;
 	}
 
+	/**
+	 * Add about information
+	 *
+	 * @param string $about about information
+	 * @return Application
+	 */
 	public function about(string $about): Application {
 		$this->Application_Object->about = $about;
 		return $this;
 	}
 
+	/**
+	 * Author info
+	 *
+	 * @param string $author author information
+	 * @return Application
+	 */
 	public function author(string $author): Application {
 		$this->Application_Object->author = $author;
 		return $this;
 	}
 
+	/**
+	 * Version information
+	 *
+	 * @param string $version current version
+	 * @return Application
+	 */
 	public function version(string $version): Application {
 		$this->Application_Object->version = $version;
 		return $this;
 	}
 
+	/**
+	 * Website for application
+	 *
+	 * @param string $website website
+	 * @return Application
+	 */
 	public function website(string $website): Application {
 		$this->Application_Object->website = $website;
 		return $this;
 	}
 
+	/**
+	 * Add a command to the application
+	 *
+	 * @param Command_Object $Command_Object the command object to add
+	 * @return Application
+	 */
 	public function command(Command_Object $Command_Object): Application {
 		$this->Application_Object->commands[$Command_Object->command_name] = $Command_Object;
 		if (!empty($Command_Object->event)) {
@@ -89,6 +192,13 @@ class Application
 		return $this;
 	}
 
+	/**
+	 * Builds a version command
+	 * 
+	 * WIP: only build if one not created
+	 *
+	 * @return void
+	 */
 	protected function buildVersionCommand() {
 		if(empty($this->Application_Object->version)) {
 			return;
@@ -98,22 +208,32 @@ class Application
 
 		$command = Command::create('version')
 			->about('Prints the version information for ' . $title)
-->action(
+			->action(
 				function($params) use ($version, $title) {
-				echo "$title version: $version\n\n";
-				exit();
-	}
-)
+					echo "$title version: $version\n\n";
+					exit();
+				}
+			)
 			->save();
 
 		$this->command($command);
 	}
 
+	/**
+	 * Before run completes this should be done
+	 *
+	 * @return void
+	 */
 	protected function before(): void {
 		$this->argv = $_SERVER['argv'];
 		$this->buildVersionCommand();
 	}
 
+	/**
+	 * Run the application
+	 *
+	 * @return void
+	 */
 	public function run(): void {
 		$this->before();
 		$Request = $this->Request_Handler->parseRequest($this->argv);

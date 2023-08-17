@@ -39,4 +39,11 @@ class Command_Object
 	 * @var string
 	 */
 	public string $event = '';
+
+	/**
+	 * Hides a command from the help menu or CLI input
+	 *
+	 * @var boolean
+	 */
+	public bool $hidden_command = FALSE;
 }

@@ -90,6 +90,17 @@ class Command
 	}
 
 	/**
+	 * Hide command from help or CLI input, makes it event triggered only
+	 *
+	 * @param boolean $hidden_command should this command be hidden
+	 * @return Command
+	 */
+	public function hiddenCommand(bool $hidden_command): Command {
+		$this->Command_Object->hidden_command = $hidden_command;
+		return $this;
+	}
+
+	/**
 	 * Returns the command object
 	 *
 	 * @return Command_Object

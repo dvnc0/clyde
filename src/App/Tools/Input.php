@@ -5,17 +5,39 @@ use Clyde\Tools\Printer;
 
 class Input
 {
+	/**
+	 * Printer
+	 *
+	 * @var Printer
+	 */
 	protected Printer $Printer;
 
+	/**
+	 * construct
+	 *
+	 * @param Printer $Printer Printer
+	 */
 	public function __construct(Printer $Printer) {
 		$this->Printer = $Printer;
 	}
 
+	/**
+	 * get a response from cli
+	 *
+	 * @param string $message message to print
+	 * @return string|boolean
+	 */
 	public function get(string $message): string|bool {
 		$this->Printer->message($message);
 		return readline();
 	}
 
+	/**
+	 * Affirm prompt
+	 *
+	 * @param string $message message to print
+	 * @return boolean
+	 */
 	public function affirm(string $message): bool {
 		$this->Printer->message($message);
 		$response = readline();
@@ -25,6 +47,13 @@ class Input
 		return !empty($match);
 	}
 
+	/**
+	 * Warn prompt, warns if answer not allowed
+	 *
+	 * @param string $message  message to print
+	 * @param array  $required required answers
+	 * @return boolean
+	 */
 	public function warnAffirm(string $message, array $required = []): bool {
 		$this->Printer->warning($message);
 		$response = readline();
@@ -44,6 +73,14 @@ class Input
 		return !empty($match);
 	}
 
+	/**
+	 * Multiple choice prompt
+	 *
+	 * @param string $message message to print
+	 * @param array  $options options
+	 * @param string $default default answer
+	 * @return void
+	 */
 	public function prompt(string $message, array $options, string $default) {
 		$lastLetter    =  chr(ord('a')+count($options)-1);
 		$selectOptions = range('a', $lastLetter);
@@ -71,6 +108,15 @@ class Input
 		}
 	}
 
+	/**
+	 * Multiple choice prompt
+	 *
+	 * @param string  $message            message to print
+	 * @param array   $options            options
+	 * @param array   $default            default value
+	 * @param boolean $single_answer_only multiselect ?
+	 * @return array
+	 */
 	public function multipleChoice(string $message, array $options, $default = [], $single_answer_only = FALSE): array {
 		$up_del = "\033[1A\033[2K";
 	
@@ -129,15 +175,13 @@ class Input
 							return $out;
 						}
 						if (in_array($index, $selected)) {
-$selected = array_filter(
-    $selected, function ($in) use ($index) {
+							$selected = array_filter($selected, function ($in) use ($index) {
 								if ($in === $index) {
 									return FALSE;
 								}
 	
 								return TRUE;
-	}
-);
+							});
 						} else {
 							array_push($selected, $index);
 						}
@@ -153,10 +197,26 @@ $selected = array_filter(
 		}
 	}
 
+	/**
+	 * Select one from list
+	 *
+	 * @param string $message message to print
+	 * @param array  $options the options to choose from
+	 * @return array
+	 */
 	public function list(string $message, array $options): array {
 		return $this->multipleChoice($message, $options, [], TRUE);
 	}
 
+	/**
+	 * Prints the options
+	 *
+	 * @param array   $options     options array
+	 * @param integer $index       index
+	 * @param array   $selected    what is selected
+	 * @param boolean $single_only single answer
+	 * @return void
+	 */
 	protected function printOptions(array $options, int $index, array $selected, $single_only = FALSE) {
 		foreach($options as $key => $opt) {
 			if ($key === $index) {
@@ -181,6 +241,12 @@ $selected = array_filter(
 		}
 	}
 
+	/**
+	 * password prompt
+	 *
+	 * @param string $message the message to print
+	 * @return string
+	 */
 	public function password(string $message): string {
 		$del_line = "\033[1K\r";
 		$this->Printer->warning($message, FALSE);
@@ -216,6 +282,13 @@ $selected = array_filter(
 		}
 	}
 
+	/**
+	 * tabbed autocomplete
+	 *
+	 * @param string $message message to print
+	 * @param array  $answers possible answers
+	 * @return string
+	 */
 	public function autocompleteAnswers(string $message, array $answers): string {
 		$callback = function ($line, $index) use ($answers) {
 			return $answers;
@@ -227,6 +300,13 @@ $selected = array_filter(
 		return readline();
 	}
 
+	/**
+	 * single choice
+	 *
+	 * @param string $message message
+	 * @param array  $options options
+	 * @return string
+	 */
 	public function singleChoice(string $message, array $options): string {
 		while (TRUE) {
 			$prompt = $message . implode(', ', $options);
@@ -242,6 +322,14 @@ $selected = array_filter(
 		}
 	}
 
+	/**
+	 * Expnd prompt type
+	 *
+	 * @param string $message     message
+	 * @param array  $list        list
+	 * @param array  $sub_options options
+	 * @return array
+	 */
 	public function expand(string $message, array $list, array $sub_options): array {
 		//
 		return [];

@@ -6,8 +6,16 @@ use Exception;
 
 class Help
 {
+	/**
+	 * Templates directory
+	 */
 	const TEMPLATES = __DIR__ . '/../Templates';
 
+	/**
+	 * template lexemes
+	 *
+	 * @var array
+	 */
 	protected array $help_lexemes = [
 		'%\#application_name\#%',
 		'%\#author\#%',
@@ -16,6 +24,12 @@ class Help
 		'%\#about\#%',
 	];
 
+	/**
+	 * Build the help output
+	 *
+	 * @param Application_Object $Application_Object Application
+	 * @return void
+	 */
 	public function buildHelpOutPut(Application_Object $Application_Object) {
 		$help_data = [
 			$Application_Object->application_name,

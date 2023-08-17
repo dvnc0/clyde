@@ -7,11 +7,22 @@ use Exception;
 
 class Command_Parser
 {
+	/**
+	 * Builds command data from a request and the Application
+	 *
+	 * @param Request            $Request            CLI Request
+	 * @param Application_Object $Application_Object Application object
+	 * @return array
+	 */
 	public function buildCommandData(Request $Request, Application_Object $Application_Object): array {
 		if (empty($Application_Object->commands[$Request->command])) {
 			throw new Exception("Command not found " . $Request->command);
 		}
 		$command = $Application_Object->commands[$Request->command];
+
+		if ($command->hidden_command === TRUE) {
+			throw new Exception("Command not found " . $Request->command);
+		}
 
 		$possible_args = $command->args;
 
@@ -43,6 +54,13 @@ class Command_Parser
 		return [$command, $cli_params];
 	}
 
+	/**
+	 * Process an argument
+	 *
+	 * @param mixed $arg    arg object
+	 * @param mixed $arg_in arg value
+	 * @return void
+	 */
 	protected function processArgument($arg, $arg_in) {
 		if (isset($arg->set_value)) {
 			return $arg->set_value;
