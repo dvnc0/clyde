@@ -27,7 +27,7 @@ class Arg_Option
 		return $this;
 	}
 
-	public function defaultValue(bool $default_value): Arg_Option {
+	public function defaultValue(string $default_value): Arg_Option {
 		$this->Option_Object->default_value = $default_value;
 		return $this;
 	}
