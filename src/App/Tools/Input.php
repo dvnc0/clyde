@@ -79,7 +79,7 @@ class Input
 	 * @param string $message message to print
 	 * @param array  $options options
 	 * @param string $default default answer
-	 * @return void
+	 * @return mixed
 	 */
 	public function prompt(string $message, array $options, string $default) {
 		$lastLetter    =  chr(ord('a')+count($options)-1);

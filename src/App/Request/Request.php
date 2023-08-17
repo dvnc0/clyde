@@ -21,7 +21,7 @@ class Request
 	 * Get an argument
 	 *
 	 * @param string $key key to get
-	 * @return void
+	 * @return mixed
 	 */
 	public function getArgument(string $key) {
 		return $this->arguments[$key] ?? NULL;

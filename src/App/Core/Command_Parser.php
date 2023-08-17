@@ -59,7 +59,7 @@ class Command_Parser
 	 *
 	 * @param mixed $arg    arg object
 	 * @param mixed $arg_in arg value
-	 * @return void
+	 * @return mixed
 	 */
 	protected function processArgument($arg, $arg_in) {
 		if (isset($arg->set_value)) {
