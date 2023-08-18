@@ -152,10 +152,10 @@ class Input
 				switch ($keystroke) {
 					case "\033[A": // up
 						$index = $index === 0 ? ($count_rows - 1) : $index - 1;
-						   break;
+						break;
 					case "\033[B": // down
 						$index = $index === ($count_rows - 1) ? 0 : $index + 1;
-						   break;
+						break;
 					case "\n": // enter
 						$out = [];
 						foreach ($selected as $key) {
@@ -163,7 +163,7 @@ class Input
 						}
 						fclose($stdin);
 						system('stty sane');
-						   return $out;
+						return $out;
 					case " ": // space
 						if ($single_answer_only) {
 							$out = [];
@@ -185,7 +185,7 @@ class Input
 						} else {
 							array_push($selected, $index);
 						}
-						   break;
+						break;
 				}
 	
 				for($i = 0; $i <= $count_rows; $i++) {
