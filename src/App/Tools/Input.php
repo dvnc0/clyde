@@ -117,6 +117,7 @@ class Input
 	 * @param boolean $single_answer_only multiselect ?
 	 * @return array
 	 */
+	//phpcs:disable
 	public function multipleChoice(string $message, array $options, $default = [], $single_answer_only = FALSE): array {
 		$up_del = "\033[1A\033[2K";
 	
@@ -196,6 +197,7 @@ class Input
 			}
 		}
 	}
+	//phpcs:enable
 
 	/**
 	 * Select one from list

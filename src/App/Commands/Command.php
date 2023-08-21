@@ -50,7 +50,7 @@ class Command
 	/**
 	 * Add an action to a command
 	 *
-	 * @param string|callable $action Either an instance of Action_Base or a callable/anonymous function
+	 * @param class-string<Action_Base>|callable $action Either an instance of Action_Base or a callable/anonymous function
 	 * @return Command
 	 */
 	public function action(string|callable $action): Command {

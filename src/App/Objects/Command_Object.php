@@ -3,6 +3,10 @@ namespace Clyde\Objects;
 
 use Clyde\Actions\Action_Base;
 
+/**
+ * @phpstan-type CommandObject Command_Object
+ * 
+ */
 class Command_Object
 {
 	/**
@@ -22,7 +26,7 @@ class Command_Object
 	/**
 	 * the action this command should trigger
 	 *
-	 * @var callable|Action_Base
+	 * @var callable|class-string<Action_Base>
 	 */
 	public $action;
 

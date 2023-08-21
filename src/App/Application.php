@@ -15,6 +15,9 @@ use Clyde\Objects\Printer_Object_Base;
 use Clyde\Tools\Printer;
 use Exception;
 
+/**
+ * @phpstan-import-type CommandObject from \Clyde\Objects\Command_Object
+ */
 class Application
 {
 	/**
@@ -117,7 +120,7 @@ class Application
 	/**
 	 * Get subscribed events
 	 *
-	 * @return array
+	 * @return array<string, list<CommandObject|callable>>
 	 */
 	public function getEvents(): array {
 		return $this->Application_Object->events;

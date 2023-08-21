@@ -5,6 +5,9 @@ use Clyde\Objects\Application_Object;
 use Clyde\Request\Request;
 use Exception;
 
+/**
+ * @phpstan-import-type CommandObject from \Clyde\Objects\Command_Object
+ */
 class Command_Parser
 {
 	/**
@@ -12,7 +15,7 @@ class Command_Parser
 	 *
 	 * @param Request            $Request            CLI Request
 	 * @param Application_Object $Application_Object Application object
-	 * @return array
+	 * @return array{0:CommandObject, 1:array<string, mixed>}
 	 */
 	public function buildCommandData(Request $Request, Application_Object $Application_Object): array {
 		if (empty($Application_Object->commands[$Request->command])) {
