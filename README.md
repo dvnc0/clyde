@@ -2,8 +2,10 @@
 Your friendly neighborhood CLI framework.
 
 [![PHPUnit](https://github.com/dvnc0/clyde/actions/workflows/php.yml/badge.svg)](https://github.com/dvnc0/clyde/actions/workflows/php.yml)
+[![PHPStan](https://github.com/dvnc0/clyde/actions/workflows/stan.yml/badge.svg)](https://github.com/dvnc0/clyde/actions/workflows/stan.yml)
 
 **Documentation is incomplete**
+[Wiki](https://github.com/dvnc0/clyde/wiki)
 **This is still a WIP**
 
 ## Purpose
@@ -90,11 +92,3 @@ The command `version` is automatically added.
 
 ## Tasks and Task Runner
 Commands can run tasks that extend `Clyde\Tasks\Task_Base` via the Task_Runner. This will fork the task into a new process and add a CLI progress spinner while the task executes.
-
-
-## TODO
-- A lot of cleanup/tests etc
-- Helper classes for tables/progress bars etc
-- Automatic Help page generation
-- Better Exceptions
-- Full docs
