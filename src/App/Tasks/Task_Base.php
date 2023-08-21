@@ -11,7 +11,7 @@ abstract class Task_Base
 	/**
 	 * running message
 	 *
-	 * @var string
+	 * @var non-empty-string
 	 */
 	public string $task_message = "Running task... ";
 

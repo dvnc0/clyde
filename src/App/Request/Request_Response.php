@@ -1,6 +1,9 @@
 <?php
 namespace Clyde\Request;
 
+/**
+ * @phpstan-type RRes array{'body'?: mixed, 'error'?: mixed}
+ */
 class Request_Response
 {
 	/**
@@ -27,9 +30,9 @@ class Request_Response
 	/**
 	 * construct
 	 *
-	 * @param boolean $success successful
-	 * @param string  $message message to attach
-	 * @param array   $data    any additional data
+	 * @param boolean     $success successful
+	 * @param string      $message message to attach
+	 * @param array<RRes> $data    any additional data
 	 */
 	public function __construct(bool $success, string $message = '', array $data = []) {
 		$this->success = $success;

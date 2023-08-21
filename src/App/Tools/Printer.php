@@ -37,9 +37,9 @@ class Printer
 	/**
 	 * Handles the actual formatting and printing to the screen.
 	 *
-	 * @param string  $message  the message that should be printed
-	 * @param string  $color    the color/styling of the message
-	 * @param boolean $new_line should the message end with a new line
+	 * @param non-empty-string $message  the message that should be printed
+	 * @param non-empty-string $color    the color/styling of the message
+	 * @param boolean          $new_line should the message end with a new line
 	 * @return void
 	 */
 	protected function output(string $message, string $color, bool $new_line = TRUE): void {

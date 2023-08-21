@@ -33,7 +33,7 @@ class Task_Runner
 	/**
 	 * symbols to use for animation
 	 *
-	 * @var array
+	 * @var list<string>
 	 */
 	protected array $symbols = [];
 
@@ -100,7 +100,7 @@ class Task_Runner
 	/**
 	 * Write a line to cli
 	 *
-	 * @param string $message message to print
+	 * @param non-empty-string $message message to print
 	 * @return void
 	 */
 	protected function write(string $message) {
