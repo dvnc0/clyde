@@ -222,6 +222,21 @@ class Application
 		$this->command($command);
 	}
 
+	protected function buildMainHelpCommand(): void {
+		$command_help = $this->Help->buildHelpOutPut($this->Application_Object);
+
+		$command = Command::create('help')
+			->about('Prints this help information')
+			->action(function () use ($command_help) {
+				printf($command_help);
+				return;
+			})
+			->save();
+
+		$this->command($command);
+
+	}
+
 	/**
 	 * Before run completes this should be done
 	 *
@@ -230,6 +245,10 @@ class Application
 	protected function before(): void {
 		$this->argv = $_SERVER['argv'];
 		$this->buildVersionCommand();
+
+		if(empty($this->Application_Object->commands['help'])) {
+			$this->buildMainHelpCommand();
+		}
 	}
 
 	/**

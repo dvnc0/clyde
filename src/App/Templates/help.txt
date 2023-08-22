@@ -1,7 +1,8 @@
 #application_name#
 -----------------------------------------------
-#version#
-#author#
-#website#
+#version# #author# #website#
 
 #about#
+
+#commands#
+

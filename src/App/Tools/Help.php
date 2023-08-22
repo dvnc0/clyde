@@ -2,6 +2,7 @@
 namespace Clyde\Tools;
 
 use Clyde\Objects\Application_Object;
+use Clyde\Tools\Table;
 use Exception;
 
 class Help
@@ -52,6 +53,19 @@ class Help
 		$file_contents = file_get_contents($template);
 
 		$file = preg_replace($this->help_lexemes, $help_data, $file_contents);
+
+		$this->Table = new Table;
+		$rows = [];
+		foreach ($Application_Object->commands as $command) {
+			$rows[] = [$command->command_name, $command->about];
+		}
+
+		$help_info = $this->Table->printTable([
+			'headers' => ['Command', 'Description'],
+			'rows' => $rows
+		]);
+
+		$file = preg_replace('%\#commands\#%', $help_info, $file);
 
 		return $file;
 	}
