@@ -269,6 +269,11 @@ class Application
 
 		$action = $command->action;
 
+		if (!empty($cli_params['help'])) {
+			print($cli_params['help']);
+			return;
+		}
+
 		if (is_callable($action)) {
 			call_user_func($action, $cli_params);
 			return;

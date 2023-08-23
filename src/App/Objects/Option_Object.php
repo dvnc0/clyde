@@ -10,4 +10,5 @@ class Option_Object
 	public bool $required         = FALSE;
 	public string $help;
 	public string $title;
+	public bool $is_flag = FALSE;
 }

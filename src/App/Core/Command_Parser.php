@@ -4,12 +4,21 @@ namespace Clyde\Core;
 use Clyde\Objects\Application_Object;
 use Clyde\Request\Request;
 use Exception;
+use Clyde\Tools\Help;
 
 /**
  * @phpstan-import-type CommandObject from \Clyde\Objects\Command_Object
  */
 class Command_Parser
 {
+	protected Help $Help;
+
+	/**
+	 * Construct
+	 */
+	public function __construct() {
+		$this->Help = new Help;
+	}
 	/**
 	 * Builds command data from a request and the Application
 	 *
@@ -31,6 +40,11 @@ class Command_Parser
 
 		$has        = [];
 		$cli_params = [];
+
+		if (isset($Request->arguments['help'])) {
+			$help_value = $this->Help->buildCommandHelpOutput($command, $Application_Object);
+			return [$command, ['help' => $help_value]];
+		}
 
 		foreach($possible_args as $title => $arg) {
 			if (isset($Request->arguments[$title])) {

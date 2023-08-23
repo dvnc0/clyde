@@ -11,4 +11,5 @@ class Flag_Object
 	public string $help;
 	public string $title;
 	public bool $set_value = TRUE;
+	public bool $is_flag   = TRUE;
 }
