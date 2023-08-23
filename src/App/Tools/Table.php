@@ -3,16 +3,14 @@ namespace Clyde\Tools;
 
 /**
  * @phpstan-type THColumn array<string>
- * @phpstan-type TableHeader array<THColumn>
- * @phpstan-type TableColumn array<string>
- * @phpstan-type TableRow array<TableColumn>
+ * @phpstan-type TableRow array<mixed>
  */
 class Table
 {
 	/**
 	 * Eventually this will have a print table helper method
 	 *
-	 * @param array{0:TableHeader, 1: TableRow} $table the table data	 
+	 * @param array{headers:THColumn, rows: TableRow} $table the table data	 
 	 * @return string
 	 */
 	public function printTable(array $table): string {

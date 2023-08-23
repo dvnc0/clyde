@@ -13,6 +13,13 @@ class Help
 	const TEMPLATES = __DIR__ . '/../Templates';
 
 	/**
+	 * Table class
+	 *
+	 * @var Table
+	 */
+	protected Table $Table;
+
+	/**
 	 * template lexemes
 	 *
 	 * @var array
