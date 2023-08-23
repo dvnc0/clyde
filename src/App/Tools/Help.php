@@ -62,12 +62,12 @@ class Help
 		$file = preg_replace($this->help_lexemes, $help_data, $file_contents);
 
 		$this->Table = new Table;
-		$rows = [];
+		$rows        = [];
 		foreach ($Application_Object->commands as $command) {
 			$rows[] = [$command->command_name, $command->about];
 		}
 
-		$help_info = $this->Table->printTable([
+		$help_info = $this->Table->buildTable([
 			'headers' => ['Command', 'Description'],
 			'rows' => $rows
 		]);

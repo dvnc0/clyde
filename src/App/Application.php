@@ -222,6 +222,11 @@ class Application
 		$this->command($command);
 	}
 
+	/**
+	 * Builds the main help command for the Application
+	 *
+	 * @return void
+	 */
 	protected function buildMainHelpCommand(): void {
 		$command_help = $this->Help->buildHelpOutPut($this->Application_Object);
 
