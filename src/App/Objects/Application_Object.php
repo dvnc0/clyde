@@ -12,4 +12,5 @@ class Application_Object
 	public string|null $template    = NULL;
 	public array $commands;
 	public array $events = [];
+	public string|null $help_template = NULL;
 }

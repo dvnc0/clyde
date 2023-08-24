@@ -202,7 +202,7 @@ class Application
 	 * @return Application
 	 */
 	public function helpTemplate(string $template_path): Application {
-		//
+		$this->Application_Object->help_template = $template_path;
 		return $this;
 	}
 

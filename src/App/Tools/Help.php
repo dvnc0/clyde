@@ -119,10 +119,10 @@ class Help
 
 		$template = self::TEMPLATES . '/help.txt';
 
-		if (isset($Application_Object->template)) {
-			$template = $Application_Object->template;
+		if (!is_null($Application_Object->help_template)) {
+			$template = $Application_Object->help_template;
 		}
-
+		
 		if (!file_exists($template)) {
 			throw new Exception("Help template not found");
 		}
