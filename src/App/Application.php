@@ -196,6 +196,17 @@ class Application
 	}
 
 	/**
+	 * Override the default help template
+	 *
+	 * @param non-empty-string $template_path path to template file
+	 * @return Application
+	 */
+	public function helpTemplate(string $template_path): Application {
+		//
+		return $this;
+	}
+
+	/**
 	 * Builds a version command
 	 * 
 	 * WIP: only build if one not created
@@ -266,6 +277,13 @@ class Application
 		$Request = $this->Request_Handler->parseRequest($this->argv);
 
 		[$command, $cli_params] = $this->Command_Parser->buildCommandData($Request, $this->Application_Object);
+
+		if (!empty($command->command_arg)) {
+			$arg = $this->argv[2];
+			if (strpos($arg, '-') === FALSE) {
+				$cli_params[$command->command_arg] = $arg;
+			}
+		}
 
 		$action = $command->action;
 

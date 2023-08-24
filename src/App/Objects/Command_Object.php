@@ -50,4 +50,11 @@ class Command_Object
 	 * @var boolean
 	 */
 	public bool $hidden_command = FALSE;
+
+	/**
+	 * unnamed arg passed in after command ie: foo <bar> bar would be this value
+	 *
+	 * @var string
+	 */
+	public string $command_arg = '';
 }

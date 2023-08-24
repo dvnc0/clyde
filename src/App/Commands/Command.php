@@ -22,8 +22,14 @@ class Command
 	 * @param string $command_name the command name/title
 	 */
 	public function __construct(string $command_name) {
+		if (preg_match("/<.+>/", $command_name) >= 1) {
+			[$cmd_name, $unnamed_arg] = explode('<', $command_name);
+			$command_name             = trim($cmd_name);
+			$command_arg              = trim($unnamed_arg, "<>");
+		}
 		$this->Command_Object               = new Command_Object;
 		$this->Command_Object->command_name = $command_name;
+		$this->Command_Object->command_arg  = $command_arg ?? '';
 	}
 
 	/**
