@@ -108,7 +108,7 @@ class Help
 
 			TXT;
 		}
-		$help_info  .= $this->Table->buildTable([
+		$help_info .= $this->Table->buildTable([
 			'headers' => ['Arg', 'Alias', 'Description', 'Required', 'Is Flag'],
 			'rows' => $rows,
 		]);
