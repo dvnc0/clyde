@@ -89,15 +89,25 @@ class Help
 			];
 		}
 
+		$command_name = $command->command_name;
+
+		if (!empty($command->command_arg)) {
+			$command_name .= " <$command->command_arg>";
+		}
+
 		$this->Table = new Table;
 		$help_info   = <<<TXT
-		Command: $command->command_name
+		Command: $command_name
 		About: $command->about
-		
-		Usage:
-
-
 		TXT;
+		if (!empty($rows)) {
+			$help_info .= <<<TXT
+		
+			Usage:
+
+
+			TXT;
+		}
 		$help_info  .= $this->Table->buildTable([
 			'headers' => ['Arg', 'Alias', 'Description', 'Required', 'Is Flag'],
 			'rows' => $rows,

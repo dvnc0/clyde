@@ -28,6 +28,10 @@ class Table
 	 * @return string
 	 */
 	public function buildTable(array $table): string {
+		if (empty($table['rows'])) {
+			return '';
+		}
+		
 		$this->processCellWidths($table['headers']);
 
 		foreach ($table['rows'] as $row){
