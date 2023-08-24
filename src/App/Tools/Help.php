@@ -48,7 +48,13 @@ class Help
 			if ($command->hidden_command === TRUE){
 				continue;
 			}
-			$rows[] = [$command->command_name, $command->about];
+			
+			$command_name = $command->command_name;
+
+			if (!empty($command->command_arg)) {
+				$command_name .= " <$command->command_arg>";
+			}
+			$rows[] = [$command_name, $command->about];
 		}
 
 		$help_info = $this->Table->buildTable([
