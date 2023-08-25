@@ -67,7 +67,6 @@ class Command_Parser
 				$cli_params[$arg->title] = $arg->default_value;
 			}
 		}
-
 		return [$command, $cli_params];
 	}
 

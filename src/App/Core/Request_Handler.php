@@ -59,6 +59,14 @@ class Request_Handler
 			return $args_out;
 		}
 
+		if (strpos($argv_mutated[0], '-') === false) {
+			$argv_mutated = array_slice($argv_mutated, 1, (count($argv) - 1));
+		}
+
+		if(empty($argv_mutated)) {
+			return $args_out;
+		}
+
 		$current_arg = NULL;
 		$ignore_key  = FALSE;
 		for ($key = 0; $key <= (count($argv_mutated) - 1); $key++) {

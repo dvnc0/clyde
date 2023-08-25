@@ -81,9 +81,9 @@ class Help
 		foreach($command->args as $arg) {
 			$value  = $arg->is_flag ? '' : '=[VALUE]';
 			$rows[] = [
-				'--' . $arg->long_name . $value, 
-				'-' . $arg->short_name . $value, 
-				$arg->help, 
+				isset($arg->long_name) ? '--' . $arg->long_name . $value : '', 
+				isset($arg->short_name) ? '-' . $arg->short_name . $value : '', 
+				isset($arg->help) ? $arg->help : '', 
 				$arg->required ? 'True' : 'False', 
 				$arg->is_flag ? 'True' : 'False',
 			];
