@@ -54,6 +54,17 @@ class Command
 	}
 
 	/**
+	 * Add about information to the command
+	 *
+	 * @param string $command_information the information that help should show about this command
+	 * @return Command
+	 */
+	public function help(string $command_information): Command {
+		$this->Command_Object->about = $command_information;
+		return $this;
+	}
+
+	/**
 	 * Add an action to a command
 	 *
 	 * @param class-string<Action_Base>|callable $action Either an instance of Action_Base or a callable/anonymous function
