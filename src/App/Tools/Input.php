@@ -159,6 +159,12 @@ class Input
 						break;
 					case "\n": // enter
 						$out = [];
+						if ($single_answer_only) {
+							$out[] = $options[$index];
+							fclose($stdin);
+							system('stty sane');
+							return $out;
+						}
 						foreach ($selected as $key) {
 							$out[] = $options[$key];
 						}
@@ -168,9 +174,7 @@ class Input
 					case " ": // space
 						if ($single_answer_only) {
 							$out = [];
-							foreach ($selected as $key) {
-								$out[] = $options[$key];
-							}
+							$out[] = $options[$index];
 							fclose($stdin);
 							system('stty sane');
 							return $out;
