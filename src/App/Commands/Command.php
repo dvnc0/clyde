@@ -76,7 +76,7 @@ class Command
 			return $this;
 		}
 
-		if (class_exists($action) && get_parent_class($action) === Action_Base::class) {
+		if (class_exists($action) && is_subclass_of($action, Action_Base::class)) {
 			$this->Command_Object->action = $action;
 			return $this;
 		}

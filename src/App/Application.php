@@ -297,7 +297,7 @@ class Application
 			return;
 		}
 
-		if (get_parent_class($action) === Action_Base::class) {
+		if (is_subclass_of($action, Action_Base::class)) {
 			$Request            = new Request;
 			$Request->command   = $command->command_name;
 			$Request->arguments = $cli_params;
