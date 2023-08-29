@@ -26,7 +26,7 @@ class Command_Object
 	/**
 	 * the action this command should trigger
 	 *
-	 * @var callable|class-string<Action_Base>
+	 * @var callable|class-string
 	 */
 	public $action;
 

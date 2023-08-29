@@ -292,6 +292,10 @@ class Application
 			return;
 		}
 
+		if (!is_callable($action) && !is_subclass_of($action, Action_Base::class)) {
+			throw new Exception("Action is not callable or child of Action_Base");
+		}
+
 		if (is_callable($action)) {
 			call_user_func($action, $cli_params);
 			return;
@@ -305,7 +309,5 @@ class Application
 			$c->execute($Request);
 			return;
 		}
-
-		throw new Exception("Action is not callable or child of Action_Base");
 	}
 }
