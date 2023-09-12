@@ -6,7 +6,11 @@ use Clyde\Core\Event_Dispatcher;
 use Clyde\Request\Request;
 use Clyde\Request\Request_Response;
 use Clyde\Tools\Printer;
+use Exception;
 
+/**
+ * @property Injector SInjector
+ */
 abstract class Action_Base
 {
 	/**
@@ -60,4 +64,20 @@ abstract class Action_Base
 	 * @return Request_Response
 	 */
 	abstract public function execute(Request $Request): Request_Response;
+
+	/**
+	 * Call a method on the Application
+	 *
+	 * @param string $name      Method name
+	 * @param array  $arguments Method arguments
+	 * @return mixed
+	 */
+	public function __get(string $name) {
+		$method = "get{$name}";
+		if (method_exists($this->Application, $method)) {
+			return $this->Application->$method();
+		}
+
+		throw new Exception("Method {$method} does not exist");
+	}
 }

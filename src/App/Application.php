@@ -11,6 +11,7 @@ use Clyde\Core\Request_Handler;
 use Clyde\Core\Command_Parser;
 use Clyde\Request\Request;
 use Clyde\Core\Event_Dispatcher;
+use Clyde\Injector\Injector;
 use Clyde\Objects\Printer_Object_Base;
 use Clyde\Tools\Printer;
 use Exception;
@@ -77,6 +78,13 @@ class Application
 	public Printer $Printer;
 
 	/**
+	 * Injector
+	 *
+	 * @var Injector
+	 */
+	public Injector $Injector;
+
+	/**
 	 * Construct
 	 */
 	public function __construct() {
@@ -86,6 +94,7 @@ class Application
 		$this->Event_Dispatcher   = new Event_Dispatcher($this);
 		$this->Printer            = new Printer;
 		$this->Help               = new Help;
+		$this->Injector           = new Injector($this);
 		static::$Instance         = $this;
 	}
 
@@ -309,5 +318,14 @@ class Application
 			$c->execute($Request);
 			return;
 		}
+	}
+
+	/**
+	 * Get the Application Injector instance
+	 *
+	 * @return Injector
+	 */
+	public function getInjector(): Injector {
+		return $this->Injector;
 	}
 }
