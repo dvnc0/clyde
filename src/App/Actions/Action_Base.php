@@ -9,7 +9,7 @@ use Clyde\Tools\Printer;
 use Exception;
 
 /**
- * @property Injector SInjector
+ * @property Injector $Injector
  */
 abstract class Action_Base
 {
@@ -68,8 +68,7 @@ abstract class Action_Base
 	/**
 	 * Call a method on the Application
 	 *
-	 * @param string $name      Method name
-	 * @param array  $arguments Method arguments
+	 * @param string $name Method name
 	 * @return mixed
 	 */
 	public function __get(string $name) {

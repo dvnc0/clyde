@@ -44,7 +44,7 @@ class Injector {
 			$constructor_args = [];
 
 			foreach ($constructor_params as $param) {
-				$param_class = $param->getType()->getName();
+				$param_class = $param->getType()->getName(); // @phpstan-ignore-line
 				$param_name = $param->getName();
 
 				if (!empty($param_class) && class_exists($param_class)) {
