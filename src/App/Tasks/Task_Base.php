@@ -7,6 +7,9 @@ use Clyde\Tasks\Task_Response;
 use Clyde\Tools\Printer;
 use Exception;
 
+/**
+ * @property Injector SInjector
+ */
 abstract class Task_Base
 {
 	/**
