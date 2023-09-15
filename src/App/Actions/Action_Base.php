@@ -6,10 +6,12 @@ use Clyde\Core\Event_Dispatcher;
 use Clyde\Request\Request;
 use Clyde\Request\Request_Response;
 use Clyde\Tools\Printer;
-use Exception;
+use Clyde\Injector\Injector;
 
 /**
  * @property Injector $Injector
+ * @property Event_Dispatcher $Event_Dispatcher
+ * @property Printer $Printer
  */
 abstract class Action_Base
 {
@@ -21,29 +23,12 @@ abstract class Action_Base
 	protected Application $Application;
 
 	/**
-	 * Event dispatcher
-	 *
-	 * @var Event_Dispatcher
-	 */
-	protected Event_Dispatcher $Event_Dispatcher;
-
-	/**
-	 * Printer
-	 *
-	 * @var Printer
-	 */
-	protected Printer $Printer;
-
-	/**
 	 * Construct
 	 *
-	 * @param Application      $Application      The Application instance
-	 * @param Event_Dispatcher $Event_Dispatcher The Event Dispatcher
+	 * @param Application $Application The Application instance
 	 */
-	public function __construct(Application $Application, Event_Dispatcher $Event_Dispatcher) {
-		$this->Application      = $Application;
-		$this->Event_Dispatcher = $Event_Dispatcher;
-		$this->Printer          = $this->Application->Printer;
+	public function __construct(Application $Application) {
+		$this->Application = $Application;
 	}
 
 	/**
@@ -72,11 +57,6 @@ abstract class Action_Base
 	 * @return mixed
 	 */
 	public function __get(string $name) {
-		$method = "get{$name}";
-		if (method_exists($this->Application, $method)) {
-			return $this->Application->$method();
-		}
-
-		throw new Exception("Method {$method} does not exist");
+		return $this->Application->{$name};
 	}
 }

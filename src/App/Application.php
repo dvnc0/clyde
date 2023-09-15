@@ -17,6 +17,10 @@ use Clyde\Tools\Printer;
 use Exception;
 
 /**
+ * @property Injector $Injector
+ * @property Event_Dispatcher $Event_Dispatcher
+ * @property Printer $Printer
+ * 
  * @phpstan-import-type CommandObject from \Clyde\Objects\Command_Object
  */
 class Application
@@ -325,7 +329,41 @@ class Application
 	 *
 	 * @return Injector
 	 */
-	public function getInjector(): Injector {
+	protected function getInjector(): Injector {
 		return $this->Injector;
+	}
+
+	/**
+	 * Get the Application Event Dispatcher instance
+	 *
+	 * @return Event_Dispatcher
+	 */
+	protected function getEventDispatcher(): Event_Dispatcher {
+		return $this->Event_Dispatcher;
+	}
+
+	/**
+	 * Get the Application Printer instance
+	 *
+	 * @return Printer
+	 */
+	protected function getPrinter(): Printer {
+		return $this->Printer;
+	}
+
+	/**
+	 * Magic method __get
+	 *
+	 * @param string $name property name
+	 * @return mixed
+	 */
+	public function __get(string $name) {
+		$name   = str_replace('_', '', $name);
+		$method = "get{$name}";
+		if (method_exists($this, $method)) {
+			return $this->{$method}();
+		}
+
+		throw new Exception("Method {$method} does not exist");
 	}
 }

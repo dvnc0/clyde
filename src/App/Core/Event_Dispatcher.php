@@ -34,8 +34,8 @@ class Event_Dispatcher
 	/**
 	 * Dispatch an event
 	 *
-	 * @param string $event_name the name of the event to dispatch
-	 * @param array  $data       the argument data to pass
+	 * @param non-empty-string $event_name the name of the event to dispatch
+	 * @param array<string>    $data       the argument data to pass
 	 * @return void
 	 */
 	public function dispatch(string $event_name, array $data = []) {
@@ -46,11 +46,11 @@ class Event_Dispatcher
 		}
 
 		foreach ($this->events[$event_name] as $Command) {
-			if (is_callable($Command)) {
-				call_user_func($Command, $data);
+			if (is_callable($Command->action)) {
+				call_user_func($Command->action, $data);
 				continue;
 			}
-	
+
 			if (get_parent_class($Command->action) === Action_Base::class) {
 				$action             = $Command->action;
 				$Request            = new Request;

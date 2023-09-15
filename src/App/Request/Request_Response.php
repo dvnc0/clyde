@@ -2,7 +2,7 @@
 namespace Clyde\Request;
 
 /**
- * @template RRes of array{'body'?: mixed, 'error'?: mixed}
+ * @template T of array
  */
 class Request_Response
 {
@@ -32,7 +32,7 @@ class Request_Response
 	 *
 	 * @param boolean $success successful
 	 * @param string  $message message to attach
-	 * @param RRes    $data    any additional data
+	 * @param T       $data    any additional data
 	 */
 	public function __construct(bool $success, string $message = '', array $data = []) {
 		$this->success = $success;

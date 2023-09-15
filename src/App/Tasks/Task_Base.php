@@ -9,6 +9,8 @@ use Exception;
 
 /**
  * @property Injector $Injector
+ * @property Event_Dispatcher $Event_Dispatcher
+ * @property Printer $Printer
  */
 abstract class Task_Base
 {
@@ -27,28 +29,12 @@ abstract class Task_Base
 	protected Application $Application;
 
 	/**
-	 * Event dispatch
-	 *
-	 * @var Event_Dispatcher
-	 */
-	protected Event_Dispatcher $Event_Dispatcher;
-
-	/**
-	 * Printer
-	 *
-	 * @var Printer
-	 */
-	protected Printer $Printer;
-
-	/**
 	 * construct
 	 *
 	 * @param Application $Application Application Instance
 	 */
 	public function __construct(Application $Application) {
-		$this->Application      = $Application;
-		$this->Event_Dispatcher = $this->Application->Event_Dispatcher;
-		$this->Printer          = $this->Application->Printer;
+		$this->Application = $Application;
 	}
 	
 	/**
@@ -65,11 +51,6 @@ abstract class Task_Base
 	 * @return mixed
 	 */
 	public function __get(string $name) {
-		$method = "get{$name}";
-		if (method_exists($this->Application, $method)) {
-			return $this->Application->$method();
-		}
-
-		throw new Exception("Method {$method} does not exist");
+		return $this->Application->{$name};
 	}
 }
