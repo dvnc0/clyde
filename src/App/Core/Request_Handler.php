@@ -35,7 +35,7 @@ class Request_Handler
 		$Request = new Request;
 
 		if (empty($argv[1])) {
-			throw new Exception("Command was not passed");
+			$argv[1] = 'help';
 		}
 		$Request->command = $argv[1];
 
